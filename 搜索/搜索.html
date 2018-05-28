@@ -53,7 +53,7 @@
 					if(chrStr == null || chrStr.length == 0)
 						return "";
 					var tmpchr = chrStr.charAt(0);
-					if(chrStr.charCodeAt(0) <= 255)
+					if(chrStr.charCodeAt(0) <= 255) //如果Unicode码小于256的话就不是汉字
 						return tmpchr;
 					for(var i = 0; i < this._pystr.length; i++) {
 						if(this._pystr[i].indexOf(tmpchr) >= 0)
@@ -62,15 +62,15 @@
 					return '';
 				},
 				convertPYs: function(str) {
-					var arr = str.split('');
+					var arr = str.split(''); //切割输入字符串
 					var arrPY = [],
 						arrPYS = [];
 					var ssht;
 					for(var i = 0; i < arr.length; i++) {
-						ssht = this.convertPY(arr[i]);
-						if(ssht) {
-							arrPY.push(ssht);
-							arrPYS.push(ssht.charAt(0));
+						ssht = this.convertPY(arr[i]); //获取该汉字对应的拼音
+						if(ssht) { 
+							arrPY.push(ssht); //全拼
+							arrPYS.push(ssht.charAt(0));  //首字母
 						}
 					}
 					return [arrPY.join(''), arrPYS.join(''), str];
@@ -101,8 +101,8 @@
 			}
 
 			function query() {
-				var str = getEl('txtChinese').value.trim();
-				if(!str) {
+				var str = getEl('txtChinese').value.trim(); //获取输入框内的值，并去除掉里面空格，tab缩进，换行等所有空白
+				if(!str) { //如果输入字符串为空则return
 					return '';
 				}
 
